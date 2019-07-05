@@ -49,7 +49,7 @@
       let newChat = document.createElement('div');
       newChat.classList.add("chats");
 
-      newChat.innerHTML = "<h3>User</h3><span>Julio 4 de 2019</span><p>" + person  + "</p>";
+      newChat.innerHTML = `<h3><%= user %></h3><span>Julio 4 de 2019</span><p> ${person} </p>`;
 
       let windows = document.querySelector(".window");
       windows.appendChild(newChat);
