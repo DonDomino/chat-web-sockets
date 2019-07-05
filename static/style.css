@@ -1,0 +1,245 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 16px;
+}
+
+.container {
+  max-width: 1000px;
+  height: 750px;
+  display: flex;
+}
+
+aside {
+  background-color: #343a40;
+  width: 270px;
+  height: 750px;
+}
+
+ul {
+  list-style: none;
+  color: rgba(227, 227, 227, 0.753);
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+li span {
+  flex: 2;
+}
+
+li i {
+  margin: 0 10px 0 25px;
+}
+
+li i.fa-ellipsis-v {
+  margin-right: 25px;
+}
+
+.users {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+}
+
+.users:hover {
+  background-color: #007bff;
+  width: 100%;
+  cursor: pointer;
+}
+
+.online {
+  color: green;
+}
+
+.active {
+  background-color: #007bff;
+}
+
+.hide {
+  display: none;
+}
+
+.right {
+  width: 70%;
+  height: 750px;
+}
+
+.barra {
+  background-color: white;
+  width: 100%;
+  height: 30px;
+  border: 1.5px solid rgb(192, 192, 192);
+  text-align: right;
+}
+
+.barra span {
+  margin-right: 10px;
+  color: gray;
+  font-size: 11px;
+}
+
+.window {
+  background-color: white;
+  width: 100%;
+  height: 650px;
+  border-right: 1.5px solid rgb(192, 192, 192);
+  overflow-y: scroll;
+}
+
+.chats {
+  width: 250px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+}
+
+.chats h3 {
+  margin: 10px 0 5px 10px;
+  color: rgb(124, 122, 122);
+}
+
+.chats span {
+  margin-left: 10px;
+  font-size: 0.8rem;
+  color: rgb(124, 122, 122);
+}
+
+.chats p {
+  font-size: 0.9rem;
+  text-align: left;
+  margin: 0 0 10px 10px;
+}
+
+.inputDiv {
+  background-color: white;
+  width: 100%;
+  height: 70px;
+  border: 1px solid rgb(192, 192, 192);
+  display: flex;
+  justify-content: center;
+}
+
+.inputBar {
+  width: 100%;
+  margin: 20px;
+  position: relative;
+}
+
+.inputDiv input {
+  border-radius: 3px;
+  border: 1.5px solid rgb(192, 192, 192);
+  width: 100%;
+  height: 30px;
+}
+
+.inputBar i {
+  position: absolute;
+  top: 7px;
+  right: 5px;
+  font-size: 1.2rem;
+  color: gray;
+}
+
+@media (min-width: 1000px) {
+  .container {
+    margin: 0 auto;
+  }
+}
+
+/* Estilos Modal */
+/* Full-width input fields */
+.logintext {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Center the image and position the close button */
+.container2 {
+  padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: block;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+  padding-top: 60px;
+  text-align: center;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {
+    -webkit-transform: scale(0)
+  }
+
+  to {
+    -webkit-transform: scale(1)
+  }
+}
+
+@keyframes animatezoom {
+  from {
+    transform: scale(0)
+  }
+
+  to {
+    transform: scale(1)
+  }
+}

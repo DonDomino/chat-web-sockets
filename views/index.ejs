@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Chat</title>
+  <link rel="stylesheet" href ="static/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="container">
+    <aside>
+      <ul>
+        
+      </ul>
+    </aside>
+    <div class="right">
+      <div class="barra">
+        <span>Close conversation</span>
+      </div>
+      <div class="window">
+        <ul id="message">
+          
+
+        </ul>
+      </div>
+      <div class="inputDiv">
+        <div class="inputBar">
+          <form action="">
+            <input id="chatInput" type="text">
+            <i class="far fa-smile"></i>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script>
+    const chatRender = (person) => {
+      let newChat = document.createElement('div');
+      newChat.classList.add("chats");
+
+      newChat.innerHTML = "<h3>User</h3><span>Julio 4 de 2019</span><p>" + person  + "</p>";
+
+      let windows = document.querySelector(".window");
+      windows.appendChild(newChat);
+    }    
+    $(function () {
+    let socket = io();
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      socket.emit('chat message', $('#chatInput').val());
+      $('#chatInput').val('');
+      return false;
+    });
+      socket.on('chat message', function(msg){
+        chatRender(msg);
+      });
+  });
+  </script>
+
+</body>
+</html>
