@@ -15,30 +15,28 @@ app.use(cookieSession({
 }));
 
 app.locals.users = [];
-app.locals.userName = "";
 app.locals.messages = [];
+let users = app.locals.users;
+let messages = app.locals.messages;
 app.get("/", (req, res) => {
   res.render("login");
 });
 app.post("/", (req, res) => {
-  app.locals.userName = req.body.userName;
-  req.session.userName = app.locals.userName;
-  app.locals.users.push(req.body.userName);
-  let user = req.body.userName
-  console.log(app.locals.users);
-  res.render("index", {user});
+  req.session.userName = req.body.userName;
+  users.push(req.body.userName);
+  let user = req.body.userName;  
+  res.render("index", {user, users});
 });
 
 //Web sockets
-io.on('connection', socket => {
-  console.log('a user connected');
+io.on('connection', socket => {  
+  io.emit('userOnline');
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    io.emit('userOffline');
   });
   socket.on('chat message', msg => {
-    io.emit('chat message', msg);
-    console.log(msg);
-    app.locals.messages.push(msg);
+    io.emit('chat message', msg, messages);
+    messages.push(msg);
   });
 });
 

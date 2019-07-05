@@ -16,19 +16,31 @@
   <div class="container">
     <aside>
       <ul>
-        
+        <% users.forEach(item => { %>
+          <li>
+            <div id="" class="users">
+              <i class="fas fa-circle"></i>
+              <span><%= item %></span>
+              <i class="fas fa-ellipsis-v"></i>
+            </div>
+          </li>
+        <% }) %>        
       </ul>
     </aside>
+
     <div class="right">
       <div class="barra">
         <span>Close conversation</span>
       </div>
-      <div class="window">
-        <ul id="message">
-          
 
-        </ul>
-      </div>
+      <div class="window">
+          <% messages.forEach(item => { %>
+            <div class="chats">
+              <h3>UserDummy</h3><span>Julio 4 de 2019</span><p> <%= item %> </p>
+            </div>
+          <% }) %>
+        </div>
+
       <div class="inputDiv">
         <div class="inputBar">
           <form action="">
@@ -49,21 +61,27 @@
       let newChat = document.createElement('div');
       newChat.classList.add("chats");
 
-      newChat.innerHTML = `<h3><%= user %></h3><span>Julio 4 de 2019</span><p> ${person} </p>`;
+      newChat.innerHTML = `<h3>UserDummy</h3><span>Julio 4 de 2019</span><p> ${person} </p>`;
 
       let windows = document.querySelector(".window");
       windows.appendChild(newChat);
     }    
-    $(function () {
+    $(() => {
     let socket = io();
-    $('form').submit(function(e){
+    $('form').submit(e => {
       e.preventDefault(); // prevents page reloading
       socket.emit('chat message', $('#chatInput').val());
       $('#chatInput').val('');
       return false;
     });
-      socket.on('chat message', function(msg){
+      socket.on('chat message', msg => {
         chatRender(msg);
+      });
+      socket.on('userOnline', () => {
+        console.log("usuario conectado");
+      });
+      socket.on('userOffline', () => {
+        console.log("usuario desconectado");
       });
   });
   </script>
