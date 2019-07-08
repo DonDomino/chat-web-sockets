@@ -18,25 +18,27 @@ app.locals.users = [];
 app.locals.messages = [];
 let users = app.locals.users;
 let messages = app.locals.messages;
+let userName = "";
 app.get("/", (req, res) => {
   res.render("login");
 });
 app.post("/", (req, res) => {
   req.session.userName = req.body.userName;
-  users.push(req.body.userName);
-  let user = req.body.userName;  
-  res.render("index", {user, users});
+  userName = req.session.userName; 
+  res.render("index", {userName});
+  users.push(userName); 
 });
 
 //Web sockets
 io.on('connection', socket => {  
-  io.emit('userOnline');
+  io.emit('userOnline', userName);
+
   socket.on('disconnect', () => {
-    io.emit('userOffline');
+    
   });
-  socket.on('chat message', msg => {
-    io.emit('chat message', msg, messages);
-    messages.push(msg);
+  socket.on('chat message', msgs => {
+    io.emit('chat message', msgs);
+    messages.push(msgs);
   });
 });
 

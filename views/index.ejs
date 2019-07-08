@@ -24,7 +24,7 @@
               <i class="fas fa-ellipsis-v"></i>
             </div>
           </li>
-        <% }) %>        
+        <% }) %>   
       </ul>
     </aside>
 
@@ -36,7 +36,7 @@
       <div class="window">
           <% messages.forEach(item => { %>
             <div class="chats">
-              <h3>UserDummy</h3><span>Julio 4 de 2019</span><p> <%= item %> </p>
+              <h3><%= item.user %></h3><span><%= item.date %></span><p> <%= item.body %> </p>
             </div>
           <% }) %>
         </div>
@@ -50,6 +50,7 @@
         </div>
       </div>
     </div>
+    <span class="hide name"> <%= userName %> </span>
   </div>
   <script src="/socket.io/socket.io.js"></script>
   <script
@@ -61,28 +62,58 @@
       let newChat = document.createElement('div');
       newChat.classList.add("chats");
 
-      newChat.innerHTML = `<h3>UserDummy</h3><span>Julio 4 de 2019</span><p> ${person} </p>`;
+      newChat.innerHTML = `<h3>${person.user}</h3><span>${person.date}</span><p>${person.body}</p>`;
 
       let windows = document.querySelector(".window");
       windows.appendChild(newChat);
     }    
-    $(() => {
+    
+    const usersRender = (user) => {
+    let newUser = document.createElement('li');
+    newUser.innerHTML =
+      `<div id="" class="users">
+        <i class="fas fa-circle online"></i>
+        <span>${user}</span>
+        <i class="fas fa-ellipsis-v"></i>
+      </div>`;
+    let sideBar = document.querySelector("ul");
+    sideBar.appendChild(newUser);
+  }
+
+    const dateNow = () => {
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let d = new Date;
+    let month = months[d.getMonth()];
+    let day = d.getDate();
+    let hour = d.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    })
+    let fecha = month.concat(" ", day, " ", hour);
+    return fecha;
+  }
+    
+  $(() => {
     let socket = io();
+    
+    socket.on('userOnline', user => {
+      usersRender(user);
+    });
+    
     $('form').submit(e => {
-      e.preventDefault(); // prevents page reloading
-      socket.emit('chat message', $('#chatInput').val());
+      e.preventDefault();
+      let name = $('.name').text();
+      let msgs = {id: name, user: name, date: dateNow(), body: $('#chatInput').val()}
+      socket.emit('chat message', msgs );
       $('#chatInput').val('');
       return false;
+    });    
+
+    socket.on('chat message', msgs => {
+      chatRender(msgs);
     });
-      socket.on('chat message', msg => {
-        chatRender(msg);
-      });
-      socket.on('userOnline', () => {
-        console.log("usuario conectado");
-      });
-      socket.on('userOffline', () => {
-        console.log("usuario desconectado");
-      });
+    
   });
   </script>
 
